@@ -16,7 +16,7 @@ export const getPlaceData = async (type, sw, ne) => {
 
         headers: {
           'X-RapidAPI-Key':
-            '89202684cemshd5a8a43b4c27950p16da9cjsn45b80520e16b',
+            process.env.RAPIDAPI_KEY,
           'X-RapidAPI-Host': 'travel-advisor.p.rapidapi.com',
         },
       }
@@ -33,7 +33,7 @@ export const getPlaceDataNeshan = () => {
   //add your api key
   var params = {
     headers: {
-      'Api-Key': 'service.b5c4ed11ff714a6bb8972c17f305b58b',
+      'Api-Key': process.env.NESHAN_KEY,
     },
   }
   //sending get request
