@@ -6,8 +6,11 @@ import List from 'components/List'
 import PlaceDetail from 'components/PlaceDetail'
 import { getPlaceData } from './api'
 
+import Script from 'next/script'
+
 const HomePage = () => {
   const [places, setPlaces] = useState([])
+  const [filteredPlaces, setFilteredPlaces] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [bounds, setBounds] = useState(null)
   const [coordinates, setCoordinates] = useState({})
@@ -25,13 +28,19 @@ const HomePage = () => {
   }, [])
 
   useEffect(() => {
+    const filteredData = places.filter((place) => place.rating > ratings)
+    setFilteredPlaces(filteredData)
+    console.log(ratings)
+  }, [ratings])
+
+  useEffect(() => {
     setIsLoading(true)
-    getPlaceData(bounds?.sw, bounds?.ne).then((data) => {
+    getPlaceData(type, bounds?.sw, bounds?.ne).then((data) => {
       console.log(data)
       setPlaces(data)
       setIsLoading(false)
     })
-  }, [coordinates, bounds])
+  }, [type, coordinates, bounds])
 
   return (
     <Flex
@@ -43,17 +52,23 @@ const HomePage = () => {
       maxHeight={'100vh'}
       position={'relative'}
     >
+      <script src='https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyB99IC1gOnxVcAVwgq9i8CdpmDEarcy5p0'></script>
+
       <Header
         setType={setType}
         setRatings={setRatings}
         setCoordinates={setCoordinates}
       />
-      <List places={places} isLoading={isLoading} />
+      <List
+        places={filteredPlaces.length ? filteredPlaces : places}
+        isLoading={isLoading}
+      />
 
       <Map
         setCoordinates={setCoordinates}
         coordinates={coordinates}
         setBounds={setBounds}
+        places={filteredPlaces.length ? filteredPlaces : places}
       />
     </Flex>
   )

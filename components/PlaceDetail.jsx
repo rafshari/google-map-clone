@@ -105,7 +105,7 @@ const PlaceDetail = ({ place }) => {
             fontWeight={500}
             color={'gray.700'}
             ml={1}
-          >
+          > 
             {place.address}
           </Text>
         </Flex>
