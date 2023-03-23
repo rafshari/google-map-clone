@@ -52,7 +52,11 @@ const HomePage = () => {
       maxHeight={'100vh'}
       position={'relative'}
     >
-      <script src='https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyB99IC1gOnxVcAVwgq9i8CdpmDEarcy5p0'></script>
+      {/* <script src='https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyB99IC1gOnxVcAVwgq9i8CdpmDEarcy5p0'></script> */}
+
+      <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB99IC1gOnxVcAVwgq9i8CdpmDEarcy5p0&libraries=places&callback=initMap">
+</script>
 
       <Header
         setType={setType}

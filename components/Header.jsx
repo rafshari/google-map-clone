@@ -26,16 +26,15 @@ import StarIcon from '@mui/icons-material/Star'
 import Ratings from './Rating'
 
 const Header = ({ setType, setRatings, setCoordinates }) => {
+  const [autocomplete, setAutocomplete] = useState(null)
+  const onLoad = (autoC) => setAutocomplete(autoC)
 
-const [autocomplete, setAutocomplete] = useState(null)
-const onLoad = (autoC) => setAutocomplete(autoC)
-
-const onPlaceChanged = () => {
-  const lat = autocomplete.getPlace().geometry.location.lat()
-  const lng = autocomplete.getPlace().geometry.location.lng()
-  setCoordinates({lat , lng})
-
-}
+  const onPlaceChanged = () => {
+    const lat = autocomplete.getPlace().geometry.location.lat()
+    const lng = autocomplete.getPlace().geometry.location.lng()
+    console.log('first:', lat)
+    setCoordinates({ lat, lng })
+  }
 
   return (
     <Flex
@@ -48,24 +47,24 @@ const onPlaceChanged = () => {
       zIndex={101}
     >
       <Flex>
-        <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged } >
-        <InputGroup width={'35vw'} shadow='lg'>
-          <InputRightElement
-            pointerEvents={'none'}
-            children={<BiSearch color='gray' fontSize={20} />}
-          />
-          <Input
-            type={'text'}
-            placeholder='Search Google Map...'
-            variant={'filled'}
-            fontSize={18}
-            bg={'white'}
-            color={'gray.700'}
-            _hover={{ bg: 'whiteAlpha.800' }}
-            _focus={{ bg: 'whiteAlpha.800' }}
-            _placeholder={{ color: 'gray.700' }}
-          />
-        </InputGroup>
+        <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
+          <InputGroup width={'35vw'} shadow='lg'>
+            <InputRightElement
+              pointerEvents={'none'}
+              children={<BiSearch color='gray' fontSize={20} />}
+            />
+            <Input
+              type={'text'}
+              placeholder='Search Google Map...'
+              variant={'filled'}
+              fontSize={18}
+              bg={'white'}
+              color={'gray.700'}
+              _hover={{ bg: 'whiteAlpha.800' }}
+              _focus={{ bg: 'whiteAlpha.800' }}
+              _placeholder={{ color: 'gray.700' }}
+            />
+          </InputGroup>
         </Autocomplete>
         <Flex alignItems={'center'} justifyContent={'center'}>
           <Flex
